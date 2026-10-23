@@ -1,0 +1,127 @@
+/* ===== Colours (the app changes some of these live from the Colours button) ===== */
+.root {
+    -acc: #0F766E;
+    -ok: #0F766E;   -ok-bg: #D8EEEB;
+    -amb: #92400E;  -amb-bg: #FCEBD3;
+    -red: #B91C1C;  -red-bg: #FBE4E4;
+    -bg: #F4F6F8;  -card: #FFFFFF;  -ink: #1B2430;  -mute: #4A5766;  -line: #DDE3E8;
+    -fx-font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+    -fx-font-size: 14px;
+    -fx-background-color: -bg;
+}
+.root.dark {
+    -acc: #4FD1C5;
+    -ok: #4FD1C5;   -ok-bg: #173B38;
+    -amb: #FCD34D;  -amb-bg: #3B2E12;
+    -red: #FCA5A5;  -red-bg: #3B1D1D;
+    -bg: #10171D;  -card: #18222A;  -ink: #E8EEF2;  -mute: #A3B1BD;  -line: #2A3742;
+}
+
+/* ===== Text ===== */
+.label { -fx-text-fill: -ink; }
+.label.mute { -fx-text-fill: -mute; }
+.label.h1 { -fx-font-size: 26px; -fx-font-weight: bold; }
+.label.h2 { -fx-font-size: 18px; -fx-font-weight: bold; }
+.label.big { -fx-font-size: 30px; -fx-font-weight: bold; }
+.label.huge { -fx-font-size: 40px; -fx-font-weight: bold; }
+.label.name { -fx-font-size: 28px; -fx-font-weight: bold; }
+.label.bold { -fx-font-weight: bold; }
+.label.txt-ok { -fx-text-fill: -ok; }
+.label.txt-red { -fx-text-fill: -red; }
+
+/* ===== Cards ===== */
+.card {
+    -fx-background-color: -card;
+    -fx-border-color: -line;
+    -fx-border-radius: 14;
+    -fx-background-radius: 14;
+    -fx-padding: 18;
+}
+.srow { -fx-border-color: -line transparent transparent transparent; -fx-padding: 10 0 10 0; }
+
+/* ===== Buttons ===== */
+.button {
+    -fx-background-color: -card;
+    -fx-border-color: -line;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+    -fx-text-fill: -ink;
+    -fx-padding: 9 16 9 16;
+    -fx-cursor: hand;
+}
+.button:hover { -fx-border-color: -acc; }
+.button.primary { -fx-background-color: -acc; -fx-border-color: -acc; -fx-text-fill: white; -fx-font-weight: bold; }
+.root.dark .button.primary { -fx-text-fill: #10171D; }
+.button.success { -fx-background-color: -ok-bg;  -fx-border-color: transparent; -fx-text-fill: -ok;  -fx-font-weight: bold; -fx-padding: 16; }
+.button.warn    { -fx-background-color: -amb-bg; -fx-border-color: transparent; -fx-text-fill: -amb; -fx-font-weight: bold; -fx-padding: 16; }
+.button.danger  { -fx-background-color: -red-bg; -fx-border-color: transparent; -fx-text-fill: -red; -fx-font-weight: bold; -fx-padding: 16; }
+.button.link {
+    -fx-background-color: transparent; -fx-border-color: transparent;
+    -fx-text-fill: -acc; -fx-underline: true; -fx-font-weight: bold; -fx-padding: 6 0 6 0;
+}
+
+/* tabs at the top */
+.toggle-button.nav {
+    -fx-background-color: -card; -fx-border-color: -line;
+    -fx-background-radius: 999; -fx-border-radius: 999;
+    -fx-text-fill: -ink; -fx-padding: 9 22 9 22; -fx-cursor: hand;
+}
+.toggle-button.nav:selected { -fx-background-color: -acc; -fx-border-color: -acc; -fx-text-fill: white; -fx-font-weight: bold; }
+.root.dark .toggle-button.nav:selected { -fx-text-fill: #10171D; }
+
+/* ===== Inputs ===== */
+.text-field {
+    -fx-background-color: -bg; -fx-border-color: -line;
+    -fx-border-radius: 8; -fx-background-radius: 8;
+    -fx-text-fill: -ink; -fx-prompt-text-fill: -mute; -fx-padding: 9 12 9 12;
+}
+.text-field:focused { -fx-border-color: -acc; }
+
+/* ===== Pills (Present / Absent / Late) ===== */
+.label.pill { -fx-padding: 3 10 3 10; -fx-background-radius: 999; -fx-font-weight: bold; -fx-font-size: 12px; }
+.label.pill-P { -fx-background-color: -ok-bg;  -fx-text-fill: -ok; }
+.label.pill-L { -fx-background-color: -amb-bg; -fx-text-fill: -amb; }
+.label.pill-A { -fx-background-color: -red-bg; -fx-text-fill: -red; }
+
+/* ===== Swipe card ===== */
+.swipe-card {
+    -fx-background-color: -card;
+    -fx-border-color: -line; -fx-border-width: 2;
+    -fx-border-radius: 20; -fx-background-radius: 20;
+    -fx-padding: 34 20 34 20;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.12), 16, 0, 0, 4);
+}
+.swipe-card.card-P { -fx-border-color: -ok; }
+.swipe-card.card-A { -fx-border-color: -red; }
+.swipe-card.card-L { -fx-border-color: -amb; }
+.overlay { -fx-font-size: 30px; -fx-font-weight: bold; -fx-background-radius: 18; }
+.overlay.ov-P { -fx-background-color: -ok-bg;  -fx-text-fill: -ok; }
+.overlay.ov-A { -fx-background-color: -red-bg; -fx-text-fill: -red; }
+.overlay.ov-L { -fx-background-color: -amb-bg; -fx-text-fill: -amb; }
+
+/* ===== Dashboard ===== */
+.stack-bar { -fx-background-color: -line; -fx-background-radius: 7; }
+.seg-P { -fx-background-color: -ok; }
+.seg-L { -fx-background-color: -amb; }
+.seg-A { -fx-background-color: -red; }
+.chart-bar { -fx-background-radius: 6 6 0 0; }
+.bar-ok  { -fx-background-color: -acc; }
+.bar-low { -fx-background-color: -red; }
+
+/* ===== Profile heatmap ===== */
+.cell { -fx-background-radius: 6; }
+.cell-P { -fx-background-color: -ok; }
+.cell-A { -fx-background-color: -red; }
+.cell-L { -fx-background-color: -amb; }
+.cell-N { -fx-background-color: -line; }
+
+/* ===== Progress bars ===== */
+.progress-bar > .track { -fx-background-color: -line; -fx-background-radius: 5; -fx-background-insets: 0; }
+.progress-bar > .bar   { -fx-background-insets: 0; -fx-background-radius: 5; -fx-padding: 5; }
+.progress-bar.pb-ok  > .bar { -fx-background-color: -ok; }
+.progress-bar.pb-acc > .bar { -fx-background-color: -acc; }
+.progress-bar.pb-low > .bar { -fx-background-color: -red; }
+
+/* ===== Scrolling ===== */
+.scroll-pane, .scroll-pane > .viewport { -fx-background-color: transparent; }

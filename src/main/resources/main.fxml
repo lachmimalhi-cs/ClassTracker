@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane fx:id="root" prefWidth="1040" prefHeight="780"
+            xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="app.MainController">
+
+    <!-- ================= TOP: title, date, buttons, tabs ================= -->
+    <top>
+        <VBox spacing="10">
+            <padding><Insets top="16" right="16" bottom="6" left="16"/></padding>
+
+            <HBox spacing="10" alignment="CENTER_LEFT">
+                <Label text="ClassTrack" styleClass="h1"/>
+                <Region HBox.hgrow="ALWAYS"/>
+                <Label text="Date" styleClass="mute"/>
+                <DatePicker fx:id="datePicker" editable="false"/>
+                <Button text="Colours" onAction="#toggleColours"/>
+                <Button text="Light / Dark" onAction="#toggleTheme"/>
+            </HBox>
+
+            <!-- colour panel (hidden until you press Colours) -->
+            <VBox fx:id="colourPanel" styleClass="card" spacing="12" visible="false" managed="false">
+                <Label text="Colours" styleClass="h2"/>
+                <HBox spacing="8">
+                    <Button text="Teal" onAction="#preset"/>
+                    <Button text="Blue" onAction="#preset"/>
+                    <Button text="Purple" onAction="#preset"/>
+                    <Button text="Pink" onAction="#preset"/>
+                    <Button text="Orange" onAction="#preset"/>
+                </HBox>
+                <HBox spacing="18" alignment="CENTER_LEFT">
+                    <HBox spacing="6" alignment="CENTER_LEFT">
+                        <Label text="Main colour" styleClass="mute"/>
+                        <ColorPicker fx:id="cpAcc" onAction="#pickColour"/>
+                    </HBox>
+                    <HBox spacing="6" alignment="CENTER_LEFT">
+                        <Label text="Present" styleClass="mute"/>
+                        <ColorPicker fx:id="cpOk" onAction="#pickColour"/>
+                    </HBox>
+                    <HBox spacing="6" alignment="CENTER_LEFT">
+                        <Label text="Late" styleClass="mute"/>
+                        <ColorPicker fx:id="cpAmb" onAction="#pickColour"/>
+                    </HBox>
+                    <HBox spacing="6" alignment="CENTER_LEFT">
+                        <Label text="Absent" styleClass="mute"/>
+                        <ColorPicker fx:id="cpRed" onAction="#pickColour"/>
+                    </HBox>
+                    <Button text="Reset colours" onAction="#resetColours"/>
+                </HBox>
+            </VBox>
+
+            <!-- tab buttons -->
+            <HBox spacing="8">
+                <fx:define>
+                    <ToggleGroup fx:id="navGroup"/>
+                </fx:define>
+                <ToggleButton fx:id="navDash" text="Dashboard" styleClass="nav" toggleGroup="$navGroup" selected="true" onAction="#goDash"/>
+                <ToggleButton fx:id="navCall" text="Roll Call" styleClass="nav" toggleGroup="$navGroup" onAction="#goCall"/>
+                <ToggleButton fx:id="navStu" text="Students" styleClass="nav" toggleGroup="$navGroup" onAction="#goStu"/>
+            </HBox>
+        </VBox>
+    </top>
+
+    <!-- ================= CENTER: the 3 pages (only one is visible) ================= -->
+    <center>
+        <StackPane>
+
+            <!-- ============ PAGE 1: DASHBOARD ============ -->
+            <ScrollPane fx:id="pageDash" fitToWidth="true">
+                <StackPane alignment="TOP_CENTER">
+                    <VBox spacing="14" maxWidth="1000" styleClass="page">
+
+                        <!-- shown when there are no students -->
+                        <VBox fx:id="welcomeCard" styleClass="card" alignment="CENTER" spacing="12">
+                            <padding><Insets top="40" right="40" bottom="40" left="40"/></padding>
+                            <Label text="Welcome to ClassTrack" styleClass="h1"/>
+                            <Label text="Your class is empty. Add your students first, then take attendance." styleClass="mute"/>
+                            <Button text="Add your first student" styleClass="primary" onAction="#addFirstStudent"/>
+                        </VBox>
+
+                        <!-- shown when there are students -->
+                        <VBox fx:id="dashContent" spacing="14">
+
+                            <VBox styleClass="card" spacing="10">
+                                <HBox alignment="CENTER_LEFT">
+                                    <VBox spacing="2">
+                                        <Label fx:id="todayDate" styleClass="mute"/>
+                                        <Label fx:id="todayMarked" styleClass="big"/>
+                                    </VBox>
+                                    <Region HBox.hgrow="ALWAYS"/>
+                                    <Button fx:id="startBtn" text="Start Roll Call" styleClass="primary" onAction="#startRollCall"/>
+                                </HBox>
+                                <HBox fx:id="stackBar" styleClass="stack-bar" minHeight="14" prefHeight="14"/>
+                                <HBox fx:id="pillsBox" spacing="10" alignment="CENTER_LEFT"/>
+                            </VBox>
+
+                            <HBox spacing="14">
+                                <VBox styleClass="card" spacing="2" HBox.hgrow="ALWAYS">
+                                    <Label text="Class average" styleClass="mute"/>
+                                    <Label fx:id="tileAvg" styleClass="big"/>
+                                </VBox>
+                                <VBox styleClass="card" spacing="2" HBox.hgrow="ALWAYS">
+                                    <Label text="Below 75%" styleClass="mute"/>
+                                    <Label fx:id="tileBelow" styleClass="big, txt-red"/>
+                                </VBox>
+                                <VBox styleClass="card" spacing="2" HBox.hgrow="ALWAYS">
+                                    <Label text="Full attendance" styleClass="mute"/>
+                                    <Label fx:id="tileFull" styleClass="big, txt-ok"/>
+                                </VBox>
+                                <VBox styleClass="card" spacing="2" HBox.hgrow="ALWAYS">
+                                    <Label text="Total students" styleClass="mute"/>
+                                    <Label fx:id="tileTotal" styleClass="big"/>
+                                </VBox>
+                            </HBox>
+
+                            <HBox spacing="14">
+                                <VBox styleClass="card" spacing="10" HBox.hgrow="ALWAYS">
+                                    <Label text="Last 7 days" styleClass="h2"/>
+                                    <HBox fx:id="chartBox" spacing="18" alignment="BOTTOM_CENTER" minHeight="190"/>
+                                    <Label fx:id="chartNote" styleClass="mute"/>
+                                </VBox>
+                                <VBox styleClass="card" spacing="10" prefWidth="300" minWidth="260">
+                                    <Label text="Needs attention" styleClass="h2"/>
+                                    <VBox fx:id="needBox"/>
+                                </VBox>
+                            </HBox>
+                        </VBox>
+                    </VBox>
+                </StackPane>
+            </ScrollPane>
+
+            <!-- ============ PAGE 2: ROLL CALL ============ -->
+            <ScrollPane fx:id="pageCall" fitToWidth="true" visible="false" managed="false">
+                <StackPane alignment="TOP_CENTER">
+                    <VBox spacing="14" maxWidth="1000" styleClass="page" alignment="TOP_CENTER">
+
+                        <VBox fx:id="rollEmpty" styleClass="card">
+                            <Label text="Add students first from the Students tab." styleClass="mute"/>
+                        </VBox>
+
+                        <VBox fx:id="rollDeck" spacing="12" maxWidth="420" alignment="CENTER">
+                            <Label fx:id="rollInfo" styleClass="mute"/>
+                            <ProgressBar fx:id="rollProgress" styleClass="pb-acc" maxWidth="1.7976931348623157E308" prefHeight="10"/>
+
+                            <!-- the swipe card -->
+                            <StackPane fx:id="swipeCard" styleClass="swipe-card" minHeight="210" maxWidth="400">
+                                <VBox alignment="CENTER" spacing="8">
+                                    <Label fx:id="rollNo" styleClass="mute"/>
+                                    <Label fx:id="rollName" styleClass="name"/>
+                                    <Label fx:id="rollPill"/>
+                                </VBox>
+                                <Label fx:id="overlay" styleClass="overlay" alignment="CENTER"
+                                       maxWidth="1.7976931348623157E308" maxHeight="1.7976931348623157E308"
+                                       mouseTransparent="true" opacity="0"/>
+                            </StackPane>
+
+                            <Label text="Drag the card: right = Present, left = Absent, down = Late (or use the arrow keys)"
+                                   styleClass="mute" wrapText="true"/>
+
+                            <HBox spacing="10">
+                                <Button text="Absent  (left)" styleClass="danger" onAction="#markAbsent"
+                                        HBox.hgrow="ALWAYS" maxWidth="1.7976931348623157E308"/>
+                                <Button text="Late  (down)" styleClass="warn" onAction="#markLate"
+                                        HBox.hgrow="ALWAYS" maxWidth="1.7976931348623157E308"/>
+                                <Button text="Present  (right)" styleClass="success" onAction="#markPresent"
+                                        HBox.hgrow="ALWAYS" maxWidth="1.7976931348623157E308"/>
+                            </HBox>
+                            <HBox spacing="10" alignment="CENTER">
+                                <Button text="Back" onAction="#rollBack"/>
+                                <Button text="Clear" onAction="#rollClear"/>
+                                <Button text="Rest all present" onAction="#restPresent"/>
+                            </HBox>
+                        </VBox>
+                    </VBox>
+                </StackPane>
+            </ScrollPane>
+
+            <!-- ============ PAGE 3: STUDENTS ============ -->
+            <ScrollPane fx:id="pageStu" fitToWidth="true" visible="false" managed="false">
+                <StackPane alignment="TOP_CENTER">
+                    <VBox spacing="14" maxWidth="1000" styleClass="page">
+
+                        <!-- add student -->
+                        <VBox styleClass="card" spacing="10">
+                            <Label text="Add student" styleClass="h2"/>
+                            <HBox spacing="10" alignment="CENTER_LEFT">
+                                <TextField fx:id="rollField" promptText="Roll no." prefWidth="110" onAction="#addStudent"/>
+                                <TextField fx:id="nameField" promptText="Student name" HBox.hgrow="ALWAYS" onAction="#addStudent"/>
+                                <Button text="Add" styleClass="primary" onAction="#addStudent"/>
+                            </HBox>
+                            <Label fx:id="addMsg" styleClass="mute"/>
+                        </VBox>
+
+                        <!-- search -->
+                        <VBox styleClass="card" spacing="10">
+                            <Label text="Search" styleClass="h2"/>
+                            <TextField fx:id="searchField" promptText="Type a name, e.g. ri"/>
+                        </VBox>
+
+                        <!-- student list (rows are added by MainController) -->
+                        <VBox styleClass="card">
+                            <VBox fx:id="listBox"/>
+                        </VBox>
+
+                        <!-- profile (shown after you click a name) -->
+                        <VBox fx:id="profileCard" styleClass="card" spacing="12" visible="false" managed="false">
+                            <HBox alignment="CENTER_LEFT">
+                                <Label fx:id="profName" styleClass="h2"/>
+                                <Region HBox.hgrow="ALWAYS"/>
+                                <Button text="Close" onAction="#closeProfile"/>
+                            </HBox>
+                            <HBox spacing="34">
+                                <VBox spacing="8">
+                                    <Label text="Last 28 days" styleClass="mute"/>
+                                    <GridPane fx:id="heatmap" hgap="5" vgap="5"/>
+                                </VBox>
+                                <VBox spacing="6" maxWidth="320">
+                                    <Label fx:id="profPct" styleClass="huge"/>
+                                    <Label fx:id="profCounts" styleClass="mute"/>
+                                    <Label fx:id="profStreak" styleClass="bold"/>
+                                    <Label fx:id="profAdvice" wrapText="true"/>
+                                </VBox>
+                            </HBox>
+                        </VBox>
+
+                    </VBox>
+                </StackPane>
+            </ScrollPane>
+
+        </StackPane>
+    </center>
+</BorderPane>
