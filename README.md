@@ -67,6 +67,10 @@ The database file is created automatically at `<home folder>/ClassTrack/classtra
 
 ## Author
 
-Bai Lachmi (Student ID 442050980)
+Lachmi Malhi
+
 Supervised by Dr. Bless Lord Y. Agble
-School of Computer Science and Technology, Southwest University of Science and Technology
+
+School of Computer Science and Technology
+
+/ Every drop counts. Every line of code matters." 🩸
