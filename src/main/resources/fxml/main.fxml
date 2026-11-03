@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.time.LocalDate?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import app.view.*?>
+
+<!--
+  The main screen: top bar, tab buttons and the three pages.
+  Everything you see is written here. MainController only has the button handlers and a few properties.
+-->
+<BorderPane prefWidth="1040" prefHeight="780" style="${controller.themeStyle}"
+            xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="app.controller.MainController">
+
+    <!-- ================= TOP: title, date, buttons, tabs ================= -->
+    <top>
+        <VBox spacing="10">
+            <padding><Insets top="16" right="16" bottom="6" left="16"/></padding>
+
+            <HBox spacing="10" alignment="CENTER_LEFT">
+                <Label text="ClassTrack" styleClass="h1"/>
+                <Region HBox.hgrow="ALWAYS"/>
+                <Label text="Date" styleClass="mute"/>
+                <DatePicker fx:id="datePicker" editable="false" onAction="#onDate">
+                    <value><LocalDate fx:factory="now"/></value>
+                </DatePicker>
+                <Button text="Colours" onAction="#toggleColours"/>
+                <Button text="Light / Dark" onAction="#toggleTheme"/>
+            </HBox>
+
+            <!-- error / information message (empty = hidden) -->
+            <Label text="${controller.message}" styleClass="banner" wrapText="true"
+                   visible="${controller.hasMessage}" managed="${controller.hasMessage}"/>
+
+            <!-- colour panel (hidden until you press Colours) -->
+            <fx:include source="colours.fxml"/>
+
+            <!-- tab buttons -->
+            <HBox spacing="8">
+                <TabButton text="Dashboard" active="${controller.dashActive}" onAction="#goDash"/>
+                <TabButton text="Roll Call" active="${controller.callActive}" onAction="#goCall"/>
+                <TabButton text="Students" active="${controller.stuActive}" onAction="#goStu"/>
+            </HBox>
+        </VBox>
+    </top>
+
+    <!-- ================= CENTER: the 3 pages (only one is visible) ================= -->
+    <center>
+        <StackPane>
+            <ScrollPane fitToWidth="true" visible="${controller.dashActive}" managed="${controller.dashActive}">
+                <StackPane alignment="TOP_CENTER">
+                    <fx:include source="dashboard.fxml"/>
+                </StackPane>
+            </ScrollPane>
+
+            <ScrollPane fitToWidth="true" visible="${controller.callActive}" managed="${controller.callActive}">
+                <StackPane alignment="TOP_CENTER">
+                    <fx:include source="rollcall.fxml"/>
+                </StackPane>
+            </ScrollPane>
+
+            <ScrollPane fitToWidth="true" visible="${controller.stuActive}" managed="${controller.stuActive}">
+                <StackPane alignment="TOP_CENTER">
+                    <fx:include source="students.fxml"/>
+                </StackPane>
+            </ScrollPane>
+        </StackPane>
+    </center>
+</BorderPane>

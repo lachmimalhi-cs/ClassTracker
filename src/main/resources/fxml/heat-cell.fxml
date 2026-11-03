@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import app.view.*?>
+
+<!-- One day of the 28-day heat map. The tooltip shows the date and the status. -->
+<ToneLabel styleClass="cell" prefWidth="28" prefHeight="28" minWidth="28" minHeight="28"
+           tone="${controller.tone}"
+           xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+           fx:controller="app.controller.HeatCellController">
+    <tooltip>
+        <Tooltip text="${controller.tip}"/>
+    </tooltip>
+</ToneLabel>

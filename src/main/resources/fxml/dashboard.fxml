@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import app.view.*?>
+
+<!-- PAGE 1: Dashboard. The chart bars and the needs-attention lines come from small templates. -->
+<VBox spacing="14" maxWidth="1000" styleClass="page"
+      xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="app.controller.DashboardController">
+
+    <!-- shown when there are no students -->
+    <VBox styleClass="card" alignment="CENTER" spacing="12"
+          visible="${controller.empty}" managed="${controller.empty}">
+        <padding><Insets top="40" right="40" bottom="40" left="40"/></padding>
+        <Label text="Welcome to ClassTrack" styleClass="h1"/>
+        <Label text="Your class is empty. Add your students first, then take attendance." styleClass="mute"/>
+        <Button text="Add your first student" styleClass="primary" onAction="#addFirstStudent"/>
+    </VBox>
+
+    <!-- shown when there are students -->
+    <VBox spacing="14" visible="${controller.filled}" managed="${controller.filled}">
+
+        <VBox styleClass="card" spacing="10">
+            <HBox alignment="CENTER_LEFT">
+                <VBox spacing="2">
+                    <Label text="${controller.dateText}" styleClass="mute"/>
+                    <Label text="${controller.markedText}" styleClass="big"/>
+                </VBox>
+                <Region HBox.hgrow="ALWAYS"/>
+                <Button text="${controller.startText}" styleClass="primary" onAction="#startRollCall"/>
+            </HBox>
+            <StackBar minHeight="14" prefHeight="14"
+                      present="${controller.present}" late="${controller.late}"
+                      absent="${controller.absent}" total="${controller.total}"/>
+            <HBox spacing="10" alignment="CENTER_LEFT">
+                <Label text="${controller.presentText}" styleClass="pill, pill-P"/>
+                <Label text="${controller.lateText}" styleClass="pill, pill-L"/>
+                <Label text="${controller.absentText}" styleClass="pill, pill-A"/>
+                <Label text="${controller.notMarkedText}" styleClass="mute"/>
+            </HBox>
+        </VBox>
+
+        <HBox spacing="14">
+            <VBox styleClass="card" spacing="2" HBox.hgrow="ALWAYS">
+                <Label text="Class average" styleClass="mute"/>
+                <Label text="${controller.avgText}" styleClass="big"/>
+            </VBox>
+            <VBox styleClass="card" spacing="2" HBox.hgrow="ALWAYS">
+                <Label text="Below 75%" styleClass="mute"/>
+                <Label text="${controller.belowText}" styleClass="big, txt-red"/>
+            </VBox>
+            <VBox styleClass="card" spacing="2" HBox.hgrow="ALWAYS">
+                <Label text="Full attendance" styleClass="mute"/>
+                <Label text="${controller.fullText}" styleClass="big, txt-ok"/>
+            </VBox>
+            <VBox styleClass="card" spacing="2" HBox.hgrow="ALWAYS">
+                <Label text="Total students" styleClass="mute"/>
+                <Label text="${controller.totalText}" styleClass="big"/>
+            </VBox>
+        </HBox>
+
+        <HBox spacing="14">
+            <VBox styleClass="card" spacing="10" HBox.hgrow="ALWAYS">
+                <Label text="Last 7 days" styleClass="h2"/>
+                <HRepeater items="${controller.chartBars}" template="/fxml/chart-bar.fxml"
+                           spacing="18" alignment="BOTTOM_CENTER" minHeight="190"/>
+                <Label text="${controller.chartNote}" styleClass="mute"/>
+            </VBox>
+            <VBox styleClass="card" spacing="10" prefWidth="300" minWidth="260">
+                <Label text="Needs attention" styleClass="h2"/>
+                <VRepeater items="${controller.needItems}" template="/fxml/need-row.fxml"/>
+                <Label text="Mark some attendance first." styleClass="mute"
+                       visible="${controller.needEmpty}" managed="${controller.needEmpty}"/>
+            </VBox>
+        </HBox>
+    </VBox>
+</VBox>

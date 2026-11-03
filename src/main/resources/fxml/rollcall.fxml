@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import app.view.*?>
+
+<!--
+  PAGE 2: Roll call. SwipeCard does the dragging and the flying animation,
+  KeyShortcuts listens for the arrow keys, and the PRESENT / ABSENT / LATE text on the card
+  is the label below, which is bound to the card.
+-->
+<VBox spacing="14" maxWidth="1000" styleClass="page" alignment="TOP_CENTER"
+      xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="app.controller.RollCallController">
+
+    <KeyShortcuts enabled="${controller.active}" onShortcut="#onShortcut"/>
+
+    <VBox styleClass="card" visible="${controller.empty}" managed="${controller.empty}">
+        <Label text="Add students first from the Students tab." styleClass="mute"/>
+    </VBox>
+
+    <VBox spacing="12" maxWidth="420" alignment="CENTER"
+          visible="${controller.filled}" managed="${controller.filled}">
+        <Label text="${controller.infoText}" styleClass="mute"/>
+        <ProgressBar progress="${controller.progress}" styleClass="pb-acc"
+                     maxWidth="1.7976931348623157E308" prefHeight="10"/>
+
+        <!-- the swipe card, with the overlay text drawn on top of it -->
+        <StackPane maxWidth="400">
+            <SwipeCard fx:id="card" minHeight="210" maxWidth="400"
+                       status="${controller.status}" request="${controller.flyRequest}" onSwiped="#onSwiped">
+                <VBox alignment="CENTER" spacing="8">
+                    <Label text="${controller.rollNo}" styleClass="mute"/>
+                    <Label text="${controller.rollName}" styleClass="name"/>
+                    <StatusPill status="${controller.status}"/>
+                </VBox>
+            </SwipeCard>
+            <ToneLabel styleClass="overlay" alignment="CENTER" mouseTransparent="true"
+                       maxWidth="1.7976931348623157E308" maxHeight="1.7976931348623157E308"
+                       text="${card.hint}" tone="${card.hintTone}" opacity="${card.hintOpacity}"
+                       translateX="${card.translateX}" translateY="${card.translateY}"/>
+        </StackPane>
+
+        <Label text="Drag the card: right = Present, left = Absent, down = Late (or use the arrow keys)"
+               styleClass="mute" wrapText="true"/>
+
+        <HBox spacing="10">
+            <Button text="Absent  (left)" styleClass="danger" onAction="#markAbsent"
+                    HBox.hgrow="ALWAYS" maxWidth="1.7976931348623157E308"/>
+            <Button text="Late  (down)" styleClass="warn" onAction="#markLate"
+                    HBox.hgrow="ALWAYS" maxWidth="1.7976931348623157E308"/>
+            <Button text="Present  (right)" styleClass="success" onAction="#markPresent"
+                    HBox.hgrow="ALWAYS" maxWidth="1.7976931348623157E308"/>
+        </HBox>
+        <HBox spacing="10" alignment="CENTER">
+            <Button text="Back" onAction="#rollBack"/>
+            <Button text="Clear" onAction="#rollClear"/>
+            <Button text="Rest all present" onAction="#restPresent"/>
+        </HBox>
+    </VBox>
+</VBox>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import app.view.*?>
+
+<!-- One bar of the "Last 7 days" chart. The bar is a ToneLabel whose height comes from the controller. -->
+<VBox spacing="4" alignment="BOTTOM_CENTER"
+      xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="app.controller.ChartBarController">
+    <ToneLabel styleClass="chart-bar" prefWidth="34" minHeight="3"
+               prefHeight="${controller.barHeight}" tone="${controller.tone}"/>
+    <Label text="${controller.percentText}" styleClass="bold"/>
+    <Label text="${controller.dateText}" styleClass="mute"/>
+</VBox>

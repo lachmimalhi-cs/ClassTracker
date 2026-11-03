@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import app.view.*?>
+
+<!-- PAGE 3: Students. Rows come from student-row.fxml, the heat map from heat-cell.fxml. -->
+<VBox spacing="14" maxWidth="1000" styleClass="page"
+      xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="app.controller.StudentsController">
+
+    <!-- add student -->
+    <VBox styleClass="card" spacing="10">
+        <Label text="Add student" styleClass="h2"/>
+        <HBox spacing="10" alignment="CENTER_LEFT">
+            <SeededTextField fx:id="rollField" seed="${controller.rollSeed}" promptText="Roll no."
+                             prefWidth="110" onAction="#addStudent"/>
+            <SeededTextField fx:id="nameField" seed="${controller.nameSeed}" promptText="Student name"
+                             HBox.hgrow="ALWAYS" onAction="#addStudent"/>
+            <Button text="Add" styleClass="primary" onAction="#addStudent"/>
+        </HBox>
+        <Label text="${controller.addMsg}" styleClass="mute"/>
+    </VBox>
+
+    <!-- search -->
+    <VBox styleClass="card" spacing="10">
+        <Label text="Search" styleClass="h2"/>
+        <SeededTextField promptText="Type a name, e.g. ri" onTextChanged="#onSearch"/>
+    </VBox>
+
+    <!-- student list -->
+    <VBox styleClass="card">
+        <VRepeater items="${controller.rows}" template="/fxml/student-row.fxml"/>
+        <Label text="${controller.listNote}" styleClass="mute"
+               visible="${controller.hasNote}" managed="${controller.hasNote}"/>
+    </VBox>
+
+    <!-- profile (shown after you click a name) -->
+    <VBox styleClass="card" spacing="12"
+          visible="${controller.profileVisible}" managed="${controller.profileVisible}">
+        <HBox alignment="CENTER_LEFT">
+            <Label text="${controller.profName}" styleClass="h2"/>
+            <Region HBox.hgrow="ALWAYS"/>
+            <Button text="Close" onAction="#closeProfile"/>
+        </HBox>
+        <HBox spacing="34">
+            <VBox spacing="8">
+                <Label text="Last 28 days" styleClass="mute"/>
+                <WRepeater items="${controller.heatCells}" template="/fxml/heat-cell.fxml"
+                           hgap="5" vgap="5" prefWrapLength="226"/>
+            </VBox>
+            <VBox spacing="6" maxWidth="320">
+                <Label text="${controller.profPct}" styleClass="huge"/>
+                <Label text="${controller.profCounts}" styleClass="mute"/>
+                <Label text="${controller.profStreak}" styleClass="bold"/>
+                <Label text="${controller.profAdvice}" wrapText="true"/>
+            </VBox>
+        </HBox>
+    </VBox>
+</VBox>

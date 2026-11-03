@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import app.view.*?>
+
+<!-- The Colours panel. Each preset button keeps its colour in userData. -->
+<VBox styleClass="card" spacing="12" visible="${controller.open}" managed="${controller.open}"
+      xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="app.controller.ColoursController">
+    <Label text="Colours" styleClass="h2"/>
+    <HBox spacing="8">
+        <Button text="Teal" userData="#0F766E" onAction="#preset"/>
+        <Button text="Blue" userData="#2563EB" onAction="#preset"/>
+        <Button text="Purple" userData="#7C3AED" onAction="#preset"/>
+        <Button text="Pink" userData="#DB2777" onAction="#preset"/>
+        <Button text="Orange" userData="#EA580C" onAction="#preset"/>
+    </HBox>
+    <HBox spacing="18" alignment="CENTER_LEFT">
+        <HBox spacing="6" alignment="CENTER_LEFT">
+            <Label text="Main colour" styleClass="mute"/>
+            <ColourField hex="${controller.accHex}" onPicked="#pickAcc"/>
+        </HBox>
+        <HBox spacing="6" alignment="CENTER_LEFT">
+            <Label text="Present" styleClass="mute"/>
+            <ColourField hex="${controller.okHex}" onPicked="#pickOk"/>
+        </HBox>
+        <HBox spacing="6" alignment="CENTER_LEFT">
+            <Label text="Late" styleClass="mute"/>
+            <ColourField hex="${controller.ambHex}" onPicked="#pickAmb"/>
+        </HBox>
+        <HBox spacing="6" alignment="CENTER_LEFT">
+            <Label text="Absent" styleClass="mute"/>
+            <ColourField hex="${controller.redHex}" onPicked="#pickRed"/>
+        </HBox>
+        <Button text="Reset colours" onAction="#resetColours"/>
+    </HBox>
+</VBox>

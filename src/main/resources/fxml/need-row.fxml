@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import app.view.*?>
+
+<!-- One line of "Needs attention": student name (opens the profile) and the percentage. -->
+<HBox spacing="8" alignment="CENTER_LEFT" styleClass="srow"
+      xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="app.controller.NeedRowController">
+    <Button text="${controller.name}" styleClass="link" onAction="#select"/>
+    <Region HBox.hgrow="ALWAYS"/>
+    <ToneLabel text="${controller.percentText}" styleClass="bold" tone="${controller.tone}"/>
+</HBox>

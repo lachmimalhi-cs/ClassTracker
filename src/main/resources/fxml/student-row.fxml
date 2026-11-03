@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import app.view.*?>
+
+<!--
+  One row of the student list. The right side has three parts and only one is visible at a time:
+  Edit / Delete buttons, the rename box, or the "Delete ...?" question. No dialog windows are used.
+-->
+<HBox spacing="12" alignment="CENTER_LEFT" styleClass="srow"
+      xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="app.controller.StudentRowController">
+
+    <Label text="${controller.roll}" styleClass="mute" minWidth="46"/>
+    <Button text="${controller.name}" styleClass="link" minWidth="170" onAction="#select"/>
+    <StatusPill status="${controller.status}" minWidth="90"/>
+    <VBox spacing="3" minWidth="170">
+        <ToneProgressBar progress="${controller.progress}" tone="${controller.tone}"
+                         prefWidth="120" prefHeight="10"/>
+        <Label text="${controller.progressText}" styleClass="mute"/>
+    </VBox>
+
+    <Region HBox.hgrow="ALWAYS"/>
+
+    <HBox spacing="8" visible="${controller.viewing}" managed="${controller.viewing}">
+        <Button text="Edit" onAction="#startEdit"/>
+        <Button text="Delete" onAction="#askDelete"/>
+    </HBox>
+
+    <HBox spacing="8" alignment="CENTER_LEFT" visible="${controller.editing}" managed="${controller.editing}">
+        <SeededTextField fx:id="editField" seed="${controller.editSeed}" prefWidth="180" onAction="#saveEdit"/>
+        <Button text="Save" styleClass="primary" onAction="#saveEdit"/>
+        <Button text="Cancel" onAction="#cancel"/>
+    </HBox>
+
+    <HBox spacing="8" alignment="CENTER_LEFT" visible="${controller.confirming}" managed="${controller.confirming}">
+        <Label text="${controller.confirmText}"/>
+        <Button text="Yes, delete" styleClass="danger-small" onAction="#confirmDelete"/>
+        <Button text="Cancel" onAction="#cancel"/>
+    </HBox>
+</HBox>

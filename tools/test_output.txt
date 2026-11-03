@@ -1,0 +1,140 @@
+Picked up JAVA_TOOL_OPTIONS: -Djavax.net.ssl.trustStore=/etc/ssl/certs/java/cacerts -Djavax.net.ssl.trustStoreType=JKS -Dhttps.proxyHost=127.0.0.1 -Dhttps.proxyPort=44409 -Dhttp.nonProxyHosts=localhost|127.0.0.1|::1|127.*|0.*|::|169.254.*|api.anthropic.com|api-staging.anthropic.com|api-pr-preview.anthropic.com|mcp-proxy.anthropic.com|mcp-proxy-staging.anthropic.com|registry.npmjs.org|jsr.io|npm.jsr.io|pypi.org|files.pythonhosted.org|index.crates.io|proxy.golang.org|host.docker.internal|10.*|172.16.*|172.17.*|172.18.*|172.19.*|172.20.*|172.21.*|172.22.*|172.23.*|172.24.*|172.25.*|172.26.*|172.27.*|172.28.*|172.29.*|172.30.*|172.31.*|192.168.*|100.64.0.0/10|*.svc.cluster.local|*.svc.cluster.local -Djdk.http.auth.tunneling.disabledSchemes= -Djdk.http.auth.proxying.disabledSchemes=
+TR01 | startsWith("sh") | expected=[1, 2] | observed=[1, 2] | PASS
+TR02 | startsWith("SH") upper case | expected=[1, 2] | observed=[1, 2] | PASS
+TR03 | startsWith("lach") surname | expected=[3] | observed=[3] | PASS
+TR04 | startsWith("xyz") no match | expected=[] | observed=[] | PASS
+TR05 | startsWith("shelliX") longer than any word | expected=[] | observed=[] | PASS
+TR06 | startsWith("") returns all | expected=[1, 2, 3, 4] | observed=[1, 2, 3, 4] | PASS
+TR07 | size() counts (word, value) pairs | expected=5 | observed=5 | PASS
+TR08 | same pair twice: size unchanged | expected=5 | observed=5 | PASS
+TR09 | same word, second value: size + 1 | expected=6 | observed=6 | PASS
+TR10 | containsWord("bai") | expected=true | observed=true | PASS
+TR11 | containsWord("ba") is only a prefix | expected=false | observed=false | PASS
+TR12 | remove("Bai", "3") returns true | expected=true | observed=true | PASS
+TR13 | containsWord("bai") after remove | expected=false | observed=false | PASS
+TR14 | remove the same pair again returns false | expected=false | observed=false | PASS
+TR15 | remove a word that was never stored | expected=false | observed=false | PASS
+TR16 | other words still found after remove | expected=[1, 2, 9] | observed=[1, 2, 9] | PASS
+TR17 | prune: empty after the only word is removed | expected=[] | observed=[] | PASS
+TR18 | prune: isEmpty() is true | expected=true | observed=true | PASS
+TR19 | clear(): size 0 | expected=0 | observed=0 | PASS
+TR20 | one-letter word | expected=[1] | observed=[1] | PASS
+TR21 | insert(null word) | expected=IllegalArgumentException | observed=IllegalArgumentException | PASS
+TR22 | insert(blank word) | expected=IllegalArgumentException | observed=IllegalArgumentException | PASS
+TR23 | insert(null value) | expected=IllegalArgumentException | observed=IllegalArgumentException | PASS
+TR24 | startsWith(null) | expected=IllegalArgumentException | observed=IllegalArgumentException | PASS
+TR25 | containsWord(null) | expected=IllegalArgumentException | observed=IllegalArgumentException | PASS
+TR26 | works with another value type (Integer) | expected=[1] | observed=[1] | PASS
+HP01 | new heap isEmpty() | expected=true | observed=true | PASS
+HP02 | new heap size() | expected=0 | observed=0 | PASS
+HP03 | size() after 5 adds | expected=5 | observed=5 | PASS
+HP04 | peek() is the smallest | expected=50 | observed=50 | PASS
+HP05 | peek() does not remove | expected=5 | observed=5 | PASS
+HP06 | poll() order | expected=[50, 60, 75, 90, 100] | observed=[50, 60, 75, 90, 100] | PASS
+HP07 | heap empty after draining | expected=true | observed=true | PASS
+HP08 | poll() on empty heap | expected=NoSuchElementException | observed=NoSuchElementException | PASS
+HP09 | peek() on empty heap | expected=NoSuchElementException | observed=NoSuchElementException | PASS
+HP10 | add(null) | expected=IllegalArgumentException | observed=IllegalArgumentException | PASS
+HP11 | null comparator | expected=IllegalArgumentException | observed=IllegalArgumentException | PASS
+HP12 | capacity 0 | expected=IllegalArgumentException | observed=IllegalArgumentException | PASS
+HP13 | 5000 random numbers (with repeats) come out sorted, array grows from capacity 1 | expected=[0, 0, 0, 0, 0, 1, 2, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3, 3, 3,... | observed=[0, 0, 0, 0, 0, 1, 2, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3, 3, 3,... | PASS
+HP14 | one item: poll() returns it | expected=42 | observed=42 | PASS
+HP15 | one item: heap is empty after | expected=true | observed=true | PASS
+HP16 | equal items: all four come out | expected=[5, 5, 5, 5] | observed=[5, 5, 5, 5] | PASS
+HP17 | toSortedList() sorted | expected=[1, 2, 3] | observed=[1, 2, 3] | PASS
+HP18 | toSortedList() leaves the heap unchanged | expected=3 | observed=3 | PASS
+HP19 | clear(): isEmpty() | expected=true | observed=true | PASS
+HP20 | heap can be used again after clear() | expected=8 | observed=8 | PASS
+HP21 | works with another type and comparator (String by length) | expected=[a, aa, bb, ccc] | observed=[a, aa, bb, ccc] | PASS
+ST01 | Student trims spaces | expected=Bai Lachmi | observed=Bai Lachmi | PASS
+ST02 | Student trims the roll | expected=1 | observed=1 | PASS
+ST03 | empty roll | expected=IllegalArgumentException | observed=IllegalArgumentException | PASS
+ST04 | blank name | expected=IllegalArgumentException | observed=IllegalArgumentException | PASS
+ST05 | null name | expected=IllegalArgumentException | observed=IllegalArgumentException | PASS
+SE01 | search("sh") in class order | expected=[Shelli, Sharmila] | observed=[Shelli, Sharmila] | PASS
+SE02 | search("SH") upper case | expected=[Shelli, Sharmila] | observed=[Shelli, Sharmila] | PASS
+SE03 | search("lach") matches the second word | expected=[Bai Lachmi] | observed=[Bai Lachmi] | PASS
+SE04 | search("ma") | expected=[Mariyam] | observed=[Mariyam] | PASS
+SE05 | search("") returns everyone | expected=5 | observed=5 | PASS
+SE06 | search("   ") spaces only returns everyone | expected=5 | observed=5 | PASS
+SE07 | search("  sh  ") is trimmed | expected=[Shelli, Sharmila] | observed=[Shelli, Sharmila] | PASS
+SE08 | search with a space uses contains() | expected=[Bai Lachmi] | observed=[Bai Lachmi] | PASS
+SE09 | search with a space, no match | expected=[] | observed=[] | PASS
+SE10 | search("xyz") no match | expected=[] | observed=[] | PASS
+SE11 | byRoll finds a student | expected=Memoona | observed=Memoona | PASS
+SE12 | byRoll unknown roll | expected=none | observed=none | PASS
+SE13 | byRoll(null) does not fail | expected=none | observed=none | PASS
+SE14 | size() | expected=5 | observed=5 | PASS
+SE15 | empty class: search("a") | expected=[] | observed=[] | PASS
+SE16 | same word in two names, class order kept | expected=[Ali Khan, Sara Ali] | observed=[Ali Khan, Sara Ali] | PASS
+SE17 | name with extra spaces is indexed by words | expected=[Ali   Khan] | observed=[Ali   Khan] | PASS
+SE18 | search(null) | expected=IllegalArgumentException | observed=IllegalArgumentException | PASS
+SE19 | null student list | expected=IllegalArgumentException | observed=IllegalArgumentException | PASS
+SE20 | null student inside the list | expected=IllegalArgumentException | observed=IllegalArgumentException | PASS
+SE21 | repeated roll number | expected=IllegalArgumentException | observed=IllegalArgumentException | PASS
+SE22 | result list cannot be changed | expected=UnsupportedOperationException | observed=UnsupportedOperationException | PASS
+NA01 | lowest 3, ties by roll number | expected=[Mariyam, Sharmila, Memoona] | observed=[Mariyam, Sharmila, Memoona] | PASS
+NA02 | fewer students than count | expected=[Mariyam] | observed=[Mariyam] | PASS
+NA03 | students with no data (null) are skipped | expected=[Shelli] | observed=[Shelli] | PASS
+NA04 | nobody has data: empty result | expected=[] | observed=[] | PASS
+NA05 | empty class | expected=[] | observed=[] | PASS
+NA06 | count 1 | expected=[Mariyam] | observed=[Mariyam] | PASS
+NA07 | count 0 | expected=IllegalArgumentException | observed=IllegalArgumentException | PASS
+NA08 | null list | expected=IllegalArgumentException | observed=IllegalArgumentException | PASS
+NA09 | null function | expected=IllegalArgumentException | observed=IllegalArgumentException | PASS
+AD01 | percent(9, 10) | expected=90 | observed=90 | PASS
+AD02 | percent(2, 3) rounds to 67 | expected=67 | observed=67 | PASS
+AD03 | percent(0, 0) is null | expected=null | observed=null | PASS
+AD04 | percent(0, 5) | expected=0 | observed=0 | PASS
+AD05 | percent(5, 5) | expected=100 | observed=100 | PASS
+AD06 | percent(1, 2) rounds half up | expected=50 | observed=50 | PASS
+AD07 | percent(1, 8) = 12.5 rounds up | expected=13 | observed=13 | PASS
+AD08 | exactly 75% (3 of 4) is not below | expected=false | observed=false | PASS
+AD09 | just under 75% (56 of 75) is below | expected=true | observed=true | PASS
+AD10 | 56 of 75 is shown as 75% | expected=75 | observed=75 | PASS
+AD11 | nothing marked is not below | expected=false | observed=false | PASS
+AD12 | classesNeeded(6, 10) | expected=6 | observed=6 | PASS
+AD13 | classesNeeded when already at 75% | expected=0 | observed=0 | PASS
+AD14 | 6 of 10 then 6 more classes reaches 75% | expected=75 | observed=75 | PASS
+AD15 | classesCanMiss(9, 10) | expected=2 | observed=2 | PASS
+AD16 | after missing 2 the student is exactly at 75% | expected=75 | observed=75 | PASS
+AD17 | classesCanMiss(3, 4) = 0 | expected=0 | observed=0 | PASS
+AD18 | classesCanMiss when below target | expected=0 | observed=0 | PASS
+AD19 | advice(6, 10) | expected=Attend the next 6 classes in a row to reach 75%. | observed=Attend the next 6 classes in a row to reach 75%. | PASS
+AD20 | advice(9, 10) | expected=Can miss 2 more classes and stay at 75%. | observed=Can miss 2 more classes and stay at 75%. | PASS
+AD21 | advice(0, 0) | expected=No attendance marked yet. | observed=No attendance marked yet. | PASS
+AD22 | advice(56, 75) says 1 class (singular) | expected=Attend the next 1 class in a row to reach 75%. | observed=Attend the next 1 class in a row to reach 75%. | PASS
+AD23 | advice(7, 8) can miss 1 more class (singular) | expected=Can miss 1 more class and stay at 75%. | observed=Can miss 1 more class and stay at 75%. | PASS
+AD24 | streak P,A,P,L,P | expected=3 | observed=3 | PASS
+AD25 | streak with no Absent | expected=3 | observed=3 | PASS
+AD26 | streak ends with Absent | expected=0 | observed=0 | PASS
+AD27 | streak of an empty list | expected=0 | observed=0 | PASS
+AD28 | present > total | expected=IllegalArgumentException | observed=IllegalArgumentException | PASS
+AD29 | negative days | expected=IllegalArgumentException | observed=IllegalArgumentException | PASS
+AD30 | streak(null) | expected=IllegalArgumentException | observed=IllegalArgumentException | PASS
+AD31 | streak with unknown status | expected=IllegalArgumentException | observed=IllegalArgumentException | PASS
+TH01 | default main colour (light) | expected=#0F766E | observed=#0F766E | PASS
+TH02 | style contains light background | expected=true | observed=true | PASS
+TH03 | dark mode: default main colour | expected=#4FD1C5 | observed=#4FD1C5 | PASS
+TH04 | dark mode: style contains dark background | expected=true | observed=true | PASS
+TH05 | dark mode is saved | expected=1 | observed=1 | PASS
+TH06 | custom colour is upper-cased | expected=#2563EB | observed=#2563EB | PASS
+TH07 | custom colour is saved | expected=#2563EB | observed=#2563EB | PASS
+TH08 | a new ThemeService loads the saved settings | expected=#2563EB | observed=#2563EB | PASS
+TH09 | preset sets Present colour too | expected=#7C3AED | observed=#7C3AED | PASS
+TH10 | reset: default colour again | expected=#4FD1C5 | observed=#4FD1C5 | PASS
+TH11 | reset: saved colour removed | expected=null | observed=null | PASS
+TH12 | mix white and black 50% | expected=#808080 | observed=#808080 | PASS
+TH13 | bad hex | expected=IllegalArgumentException | observed=IllegalArgumentException | PASS
+TH14 | bad key | expected=IllegalArgumentException | observed=IllegalArgumentException | PASS
+TH15 | null store | expected=IllegalArgumentException | observed=IllegalArgumentException | PASS
+TH16 | garbage in the saved settings is ignored | expected=true | observed=true | PASS
+--- timing (ms, average of 5 runs, JIT warmed up) ---
+PERF search N=1000 build=15.87 ms  search("ri") hits=390  1.955 ms
+PERF search N=10000 build=43.47 ms  search("ri") hits=3948  9.800 ms
+PERF search N=100000 build=324.95 ms  search("ri") hits=39732  88.970 ms
+PERF heap N=1000  n adds=0.17 ms  n peeks=0.02 ms  n polls=2.85 ms  (per op: add 169 ns, peek 15 ns, poll 2850 ns)
+PERF heap N=10000  n adds=1.36 ms  n peeks=0.23 ms  n polls=4.07 ms  (per op: add 136 ns, peek 23 ns, poll 407 ns)
+PERF heap N=100000  n adds=7.83 ms  n peeks=0.52 ms  n polls=60.22 ms  (per op: add 78 ns, peek 5 ns, poll 602 ns)
+PERF heap N=1000000  n adds=102.36 ms  n peeks=1.14 ms  n polls=1426.01 ms  (per op: add 102 ns, peek 1 ns, poll 1426 ns)
+TOTAL pass=130 fail=0
